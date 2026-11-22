@@ -9,6 +9,20 @@ function App() {
   const [selectedType, setSelectedType] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
 
+  const filteredRegistrations = sampleRegistrations.filter((registration) => {
+  const matchesSearch = registration.participantName
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase())
+
+  const matchesType =
+    selectedType === '' || registration.registrationType === selectedType
+
+  const matchesStatus =
+    selectedStatus === '' || registration.status === selectedStatus
+
+  return matchesSearch && matchesType && matchesStatus
+})
+
   return (
     <div className="min-h-screen bg-slate-100">
       {/* Header */}
@@ -73,7 +87,7 @@ function App() {
                 }}
               />
 
-              <RegistrationTable registrations={sampleRegistrations} />
+              <RegistrationTable registrations={filteredRegistrations} />
               
             </div>
 
