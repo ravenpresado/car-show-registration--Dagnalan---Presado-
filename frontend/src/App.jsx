@@ -1,6 +1,12 @@
 import KpiCard from './components/KpiCard'
+import { useState } from 'react'
+import RegistrationFilters from './components/RegistrationFilters'
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedType, setSelectedType] = useState('')
+  const [selectedStatus, setSelectedStatus] = useState('')
+
   return (
     <div className="min-h-screen bg-slate-100">
       {/* Header */}
@@ -49,6 +55,22 @@ function App() {
             <h3 className="mb-5 text-lg font-semibold text-slate-800">
               Registration Statistics
             </h3>
+
+            <div className="mt-8">
+              <RegistrationFilters
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                selectedType={selectedType}
+                onTypeChange={setSelectedType}
+                selectedStatus={selectedStatus}
+                onStatusChange={setSelectedStatus}
+                onReset={() => {
+                  setSearchTerm('')
+                  setSelectedType('')
+                  setSelectedStatus('')
+                }}
+              />
+            </div>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
               <KpiCard
