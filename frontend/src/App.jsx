@@ -3,11 +3,14 @@ import { useState } from 'react'
 import RegistrationFilters from './components/RegistrationFilters'
 import RegistrationTable from './components/RegistrationTable'
 import { sampleRegistrations } from './Api/sample-data'
+import Pagination from './components/Pagination'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedType, setSelectedType] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 10
 
   const filteredRegistrations = sampleRegistrations.filter((registration) => {
   const matchesSearch = registration.participantName
@@ -22,6 +25,15 @@ function App() {
 
   return matchesSearch && matchesType && matchesStatus
 })
+
+const totalPages = Math.ceil(filteredRegistrations.length / pageSize)
+console.log('Total registrations:', filteredRegistrations.length)
+console.log('Total pages:', totalPages)
+
+const paginatedRegistrations = filteredRegistrations.slice(
+  (currentPage - 1) * pageSize,
+  currentPage * pageSize
+)
 
   return (
     <div className="min-h-screen bg-slate-100">
@@ -87,7 +99,13 @@ function App() {
                 }}
               />
 
-              <RegistrationTable registrations={filteredRegistrations} />
+             <RegistrationTable registrations={paginatedRegistrations} />
+
+             <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
 
             </div>
 
