@@ -1,0 +1,171 @@
+@baseUrl = http://localhost:5205
+@contentType = application/json
+
+### CASE 01 - Valid Competitor, partly paid (201)
+# @name createCompetitor
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{
+  "participantName": "Juan Dela Cruz",
+  "contactNumber": "09171234567",
+  "email": "juan.delacruz@example.com",
+  "address": "123 Rizal St., Naga City",
+  "carMakeModel": "Toyota Supra MK4",
+  "plateNumber": "TST 1001",
+  "registrationType": "Competitor",
+  "amountPaid": 1000.00
+}
+
+### CASE 02 - Valid Exhibitor, unpaid (201)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Maria Santos","contactNumber":"09181234567","email":"maria@example.com","address":"Sorsogon City","carMakeModel":"Honda Civic Type R","plateNumber":"TST 1002","registrationType":"Exhibitor","amountPaid":0}
+
+### CASE 03 - Valid VIP, fully paid (201)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Pedro Reyes","contactNumber":"09191234567","email":"pedro@example.com","address":"Naga City","carMakeModel":"Nissan Skyline R34","plateNumber":"TST 1003","registrationType":"VIP","amountPaid":5000}
+
+### CASE 04 - Registration numbers increase: compare cases 01-03
+GET {{baseUrl}}/api/registrations?page=1&pageSize=10
+
+### CASE 05 - Client-supplied server fields are ignored
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test User","contactNumber":"09171234567","email":"test@example.com","address":"Test Address","carMakeModel":"Toyota 86","plateNumber":"TST 1005","registrationType":"VIP","amountPaid":0,"registrationFee":1,"status":"Confirmed","registrationNumber":"HACK-1"}
+
+### CASE 06 - All required text fields empty (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"","contactNumber":"","email":"","address":"","carMakeModel":"","plateNumber":"","registrationType":"Competitor","amountPaid":0}
+
+### CASE 07 - Invalid contact number (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test","contactNumber":"12345","email":"test@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1007","registrationType":"Competitor","amountPaid":0}
+
+### CASE 08 - Invalid email (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test","contactNumber":"09171234567","email":"not-an-email","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1008","registrationType":"Competitor","amountPaid":0}
+
+### CASE 09 - Amount paid is negative (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test","contactNumber":"09171234567","email":"test@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1009","registrationType":"Competitor","amountPaid":-1}
+
+### CASE 10 - Amount paid exceeds fee (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test","contactNumber":"09171234567","email":"test@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1010","registrationType":"Competitor","amountPaid":2501}
+
+### CASE 11 - Invalid registration type (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Test","contactNumber":"09171234567","email":"test@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1011","registrationType":"Sponsor","amountPaid":0}
+
+### CASE 12 - Participant name longer than 150 characters (400)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","contactNumber":"09171234567","email":"test@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1012","registrationType":"Competitor","amountPaid":0}
+
+### CASE 13 - Duplicate plate (use TST 1001 from case 01; 409)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Duplicate","contactNumber":"09171234567","email":"dup@example.com","address":"Address","carMakeModel":"Toyota","plateNumber":"TST 1001","registrationType":"VIP","amountPaid":0}
+
+### CASE 14 - Default list, page 1 pageSize 10
+GET {{baseUrl}}/api/registrations
+
+### CASE 15 - Newest first
+GET {{baseUrl}}/api/registrations?page=1&pageSize=10
+
+### CASE 16 - Second page, custom size
+GET {{baseUrl}}/api/registrations?page=2&pageSize=5
+
+### CASE 17 - Page past the end
+GET {{baseUrl}}/api/registrations?page=999
+
+### CASE 18 - Invalid page (400)
+GET {{baseUrl}}/api/registrations?page=0
+
+### CASE 19 - Page size too large (400)
+GET {{baseUrl}}/api/registrations?pageSize=100
+
+### CASE 20 - Filter by type
+GET {{baseUrl}}/api/registrations?type=VIP
+
+### CASE 21 - Filter by status
+GET {{baseUrl}}/api/registrations?status=Confirmed
+
+### CASE 22 - Search participant name
+GET {{baseUrl}}/api/registrations?participantName=juan
+
+### CASE 23 - Search ignores case
+GET {{baseUrl}}/api/registrations?participantName=JUAN
+
+### CASE 24 - Partial name match
+GET {{baseUrl}}/api/registrations?participantName=dela
+
+### CASE 25 - Combined filters
+GET {{baseUrl}}/api/registrations?type=Competitor&status=Pending&participantName=juan
+
+### CASE 26 - No matches
+GET {{baseUrl}}/api/registrations?participantName=zzzzzz
+
+### CASE 27 - Invalid type (400)
+GET {{baseUrl}}/api/registrations?type=Sponsor
+
+### CASE 28 - Invalid status (400)
+GET {{baseUrl}}/api/registrations?status=Done
+
+### CASE 29 - Existing ID (replace GUID with an ID from list/create response)
+GET {{baseUrl}}/api/registrations/00000000-0000-0000-0000-000000000001
+
+### CASE 30 - ID that does not exist (404)
+GET {{baseUrl}}/api/registrations/00000000-0000-0000-0000-000000000099
+
+### CASE 31 - Invalid GUID route does not crash (404)
+GET {{baseUrl}}/api/registrations/abc
+
+### CASE 32 - Summary returns all KPI fields
+GET {{baseUrl}}/api/registrations/summary
+
+### CASE 33 - Status counts add up; compare summary counts
+GET {{baseUrl}}/api/registrations/summary
+
+### CASE 34 - Summary totalRegistrations matches list totalCount
+GET {{baseUrl}}/api/registrations?page=1&pageSize=10
+
+### CASE 35 - Money totals: totalFees - totalPayments = uncollectedPayments
+GET {{baseUrl}}/api/registrations/summary
+
+### CASE 36 - Cancelled registrations excluded from money totals
+GET {{baseUrl}}/api/registrations/summary
+
+### CASE 37 - Summary updates after new registration (then re-run summary)
+POST {{baseUrl}}/api/registrations
+Content-Type: {{contentType}}
+
+{"participantName":"Summary Check","contactNumber":"09171234567","email":"summary@example.com","address":"Sorsogon","carMakeModel":"Toyota 86","plateNumber":"TST 1037","registrationType":"Exhibitor","amountPaid":500}
+
+### CASE 38 - Summary route is not treated as an ID
+GET {{baseUrl}}/api/registrations/summary
+
+### CASE 39 - SQLite persistence: restart API then re-run list and a known ID
+GET {{baseUrl}}/api/registrations
+
+### CASE 40 - Unique indexes: inspect Registrations indexes in DB Browser for SQLite
+# Manual database inspection: IX_Registrations_PlateNumber and IX_Registrations_RegistrationNumber must both be unique.

@@ -1,0 +1,8 @@
+
+# Backend generated and local files
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.suo
+backend/Api/carshow.db
