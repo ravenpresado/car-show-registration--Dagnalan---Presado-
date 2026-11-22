@@ -1,3 +1,4 @@
+import KpiCard from './components/KpiCard'
 
 function App() {
   return (
@@ -44,14 +45,44 @@ function App() {
             Welcome to the Car Show Registration Management System.
           </p>
 
-          <div className="mt-8 rounded-xl border border-slate-200 bg-white p-8">
-            <h3 className="text-lg font-semibold text-slate-800">
-              Registration Dashboard
+          <div className="mt-8">
+            <h3 className="mb-5 text-lg font-semibold text-slate-800">
+              Registration Statistics
             </h3>
 
-            <p className="mt-2 text-slate-500">
-              Your registration statistics and records will appear here.
-            </p>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              <KpiCard
+                title="Total Registrations"
+                value="125"
+                description="All registered participants"
+                icon="👥"
+                color="text-blue-600"
+              />
+
+              <KpiCard
+                title="Total Payments"
+                value="₱75,000"
+                description="Payments collected"
+                icon="💰"
+                color="text-green-600"
+              />
+
+              <KpiCard
+                title="Confirmed"
+                value="95"
+                description="Confirmed registrations"
+                icon="✅"
+                color="text-teal-600"
+              />
+
+              <KpiCard
+                title="Checked In"
+                value="60"
+                description="Participants checked in"
+                icon="🚗"
+                color="text-purple-600"
+              />
+            </div>
           </div>
         </main>
       </div>
