@@ -2,7 +2,7 @@ import KpiCard from './components/KpiCard'
 import { useState } from 'react'
 import RegistrationFilters from './components/RegistrationFilters'
 import RegistrationTable from './components/RegistrationTable'
-import { sampleRegistrations } from './api/sample-data'
+import { sampleRegistrations } from './Api/sample-data'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -88,7 +88,7 @@ function App() {
               />
 
               <RegistrationTable registrations={filteredRegistrations} />
-              
+
             </div>
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
