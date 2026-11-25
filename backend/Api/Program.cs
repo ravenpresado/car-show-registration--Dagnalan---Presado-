@@ -63,11 +63,12 @@ builder.Services.AddOpenApi(options =>
 
 var app = builder.Build();
 
-// Apply EF Core migrations
+// Apply EF Core migrations and seed initial sample data
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await dbContext.Database.MigrateAsync();
+    await RegistrationSeeder.SeedAsync(dbContext);
 }
 
 // Configure the HTTP request pipeline
