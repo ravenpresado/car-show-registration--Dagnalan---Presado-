@@ -1,5 +1,13 @@
 using System.Text.Json.Serialization;
+using Api.Features.Registrations;
 using Application.Abstractions.Data;
+using Application.Abstractions.Messaging;
+using Application.Features.Registrations;
+using Application.Features.Registrations.CreateRegistration;
+using Application.Features.Registrations.GetRegistrationById;
+using Application.Features.Registrations.GetRegistrations;
+using Application.Features.Registrations.GetRegistrationSummary;
+using Domain.Common;
 using FluentValidation;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +25,10 @@ builder.Services.AddDbContext<IAppDbContext, AppDbContext>(options =>
 builder.Services.AddValidatorsFromAssembly(typeof(IAppDbContext).Assembly);
 
 // Handlers
-// Registered per vertical slice
+builder.Services.AddScoped<ICommandHandler<CreateRegistrationCommand, Result<RegistrationResponse>>, CreateRegistrationCommandHandler>();
+builder.Services.AddScoped<IQueryHandler<GetRegistrationsQuery, Result<GetRegistrationsResponse>>, GetRegistrationsQueryHandler>();
+builder.Services.AddScoped<IQueryHandler<GetRegistrationByIdQuery, Result<RegistrationResponse>>, GetRegistrationByIdQueryHandler>();
+builder.Services.AddScoped<IQueryHandler<GetRegistrationSummaryQuery, Result<GetRegistrationSummaryResponse>>, GetRegistrationSummaryQueryHandler>();
 
 // JSON & ProblemDetails
 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -72,5 +83,6 @@ app.UseCors("FrontendPolicy");
 app.MapGet("/", () => "Welcome to the Car Show 2027 Registration API! Go to /scalar/v1 for API documentation.");
 
 // Map endpoints
+app.MapRegistrationEndpoints();
 
 app.Run();
