@@ -1,8 +1,21 @@
-
 # Backend generated and local files
 **/bin/
 **/obj/
 **/.vs/
 **/*.user
 **/*.suo
-backend/Api/carshow.db
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+# User secrets and local environment files
+.env
+.env.*
+**/appsettings.Local.json
+**/secrets.json
+
+# Frontend generated files
+node_modules/
+dist/
