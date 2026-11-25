@@ -14,7 +14,7 @@ React (Vite) + Tailwind CSS management dashboard for **AutoVista Events — Car 
 - **React 19** + **Vite**
 - **Tailwind CSS v4**
 - **Lucide React** (`lucide-react`) vector icons
-- **Google Fonts**: `Rajdhani` (display headings & KPI numbers), `Plus Jakarta Sans` (UI & table text), `JetBrains Mono` (`tabular-nums` for registration numbers, plate numbers, and ₱ currency)
+- **Google Fonts**: `Inter` with `tabular-nums` for registration numbers, plate numbers, and ₱ currency
 
 ## Project Structure (`frontend/src/`)
 

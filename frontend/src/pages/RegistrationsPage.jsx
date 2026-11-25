@@ -125,10 +125,10 @@ export default function RegistrationsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <KpiCards summary={summary} loading={loading} />
 
-      <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs">
+      <section className="overflow-hidden rounded-lg border border-gray-200 bg-white">
         <RegistrationFilters
           searchTerm={search}
           onSearchChange={handleSearchChange}
@@ -142,19 +142,17 @@ export default function RegistrationsPage() {
         {error ? (
           <div
             role="alert"
-            className="flex flex-col items-center justify-center px-6 py-14 text-center"
+            className="flex flex-col items-center justify-center px-6 py-12 text-center"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600">
-              <AlertTriangle className="h-6 w-6" aria-hidden="true" />
-            </div>
-            <h3 className="mt-4 font-display text-xl font-bold text-slate-900">
+            <AlertTriangle className="h-7 w-7 text-red-600" aria-hidden="true" />
+            <p className="mt-3 text-sm font-semibold text-gray-900">
               Unable to load registrations
-            </h3>
-            <p className="mt-1.5 max-w-md text-sm text-slate-600">{error}</p>
+            </p>
+            <p className="mt-1 max-w-md text-sm text-gray-600">{error}</p>
             <button
               type="button"
               onClick={handleRetry}
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-xs transition hover:bg-red-700 focus:ring-2 focus:ring-red-600/30 focus:outline-none"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3.5 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-50"
             >
               <RefreshCw className="h-4 w-4" aria-hidden="true" />
               <span>Try again</span>
@@ -164,34 +162,31 @@ export default function RegistrationsPage() {
           <div
             role="status"
             aria-live="polite"
-            className="flex flex-col items-center justify-center px-6 py-16 text-center"
+            className="flex flex-col items-center justify-center px-6 py-12 text-center"
           >
             <Loader2
-              className="h-8 w-8 animate-spin text-blue-600"
+              className="h-6 w-6 animate-spin text-gray-500"
               aria-hidden="true"
             />
-            <p className="mt-3 text-sm font-medium text-slate-600">
+            <p className="mt-2.5 text-sm text-gray-600">
               Loading registrations...
             </p>
           </div>
         ) : items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-500">
-              <SearchX className="h-6 w-6" aria-hidden="true" />
-            </div>
-            <h3 className="mt-4 font-display text-xl font-bold text-slate-900">
+          <div className="flex flex-col items-center justify-center px-6 py-12 text-center">
+            <SearchX className="h-7 w-7 text-gray-400" aria-hidden="true" />
+            <p className="mt-3 text-sm font-semibold text-gray-900">
               No registrations match your filters
-            </h3>
-            <p className="mt-1.5 max-w-md text-sm text-slate-500">
-              Try adjusting the participant name search or clearing your active
-              type and status filters.
+            </p>
+            <p className="mt-1 max-w-md text-sm text-gray-500">
+              Try a different participant name or clear the active filters.
             </p>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="mt-5 inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-xs transition hover:bg-slate-50 focus:ring-2 focus:ring-blue-600/20 focus:outline-none"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-gray-300 bg-white px-3.5 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
               <span>Clear filters</span>
             </button>
           </div>

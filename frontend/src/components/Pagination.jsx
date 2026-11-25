@@ -45,16 +45,16 @@ export default function Pagination({
   const isLastPage = totalPages === 0 || page >= totalPages
 
   return (
-    <div className="flex flex-col gap-3 border-t border-slate-200 bg-slate-50/60 px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-      <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
-        <span className="font-medium">
+    <div className="flex flex-col gap-3 border-t border-gray-200 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="flex flex-wrap items-center gap-4 text-xs text-gray-600">
+        <span>
           {totalCount === 0
             ? 'Showing 0 of 0'
             : `Showing ${startItem}–${endItem} of ${totalCount}`}
         </span>
 
         <div className="flex items-center gap-2">
-          <label htmlFor="page-size-select" className="font-medium text-slate-600">
+          <label htmlFor="page-size-select" className="text-gray-600">
             Per page
           </label>
           <select
@@ -62,7 +62,7 @@ export default function Pagination({
             value={pageSize}
             disabled={loading}
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
-            className="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-800 transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-md border border-gray-300 bg-white px-2 py-1 text-xs text-gray-800 focus:border-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
             {PAGE_SIZE_OPTIONS.map((size) => (
               <option key={size} value={size}>
@@ -75,15 +75,15 @@ export default function Pagination({
 
       <nav
         aria-label="Registration pagination"
-        className="flex flex-wrap items-center gap-1.5"
+        className="flex flex-wrap items-center gap-1"
       >
         <button
           type="button"
           onClick={() => onPageChange(page - 1)}
           disabled={loading || isFirstPage}
-          className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 focus:ring-2 focus:ring-blue-600/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+          <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
           <span>Prev</span>
         </button>
 
@@ -91,7 +91,7 @@ export default function Pagination({
           entry === '...' ? (
             <span
               key={`ellipsis-${index}`}
-              className="px-2 py-1 text-xs font-medium text-slate-400"
+              className="px-2 py-1 text-xs text-gray-400"
             >
               ...
             </span>
@@ -102,10 +102,10 @@ export default function Pagination({
               onClick={() => onPageChange(entry)}
               disabled={loading}
               aria-current={entry === page ? 'page' : undefined}
-              className={`min-w-[2rem] rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition focus:ring-2 focus:ring-blue-600/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 ${
+              className={`min-w-[2rem] rounded-md border px-2.5 py-1.5 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-50 ${
                 entry === page
-                  ? 'border-blue-600 bg-blue-600 text-white shadow-xs'
-                  : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100'
+                  ? 'border-gray-900 bg-gray-900 text-white'
+                  : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
               }`}
             >
               {entry}
@@ -117,10 +117,10 @@ export default function Pagination({
           type="button"
           onClick={() => onPageChange(page + 1)}
           disabled={loading || isLastPage}
-          className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 focus:ring-2 focus:ring-blue-600/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <span>Next</span>
-          <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
       </nav>
     </div>

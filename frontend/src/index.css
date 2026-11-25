@@ -1,27 +1,16 @@
 @import "tailwindcss";
 
-@theme {
-  --font-display: "Rajdhani", sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-}
-
 @layer base {
   body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    font-family: var(--font-sans);
-    background-color: #f8fafc;
-    color: #0f172a;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background-color: #f3f4f6;
+    color: #111827;
   }
 }
 
-.font-display {
-  font-family: var(--font-display);
-}
-
-.font-mono-tabular {
-  font-family: var(--font-mono);
+.tabular-nums-text {
   font-variant-numeric: tabular-nums;
 }
