@@ -6,7 +6,7 @@ import {
   RotateCcw,
   SearchX,
 } from 'lucide-react'
-import { getRegistrations, getSummary } from '../api/sample-data'
+import { getRegistrations, getSummary } from '../api/registrationsApi'
 import KpiCards from '../components/KpiCards'
 import Pagination from '../components/Pagination'
 import RegistrationFilters from '../components/RegistrationFilters'
