@@ -1,150 +1,40 @@
-import KpiCard from './components/KpiCard'
-import { useState } from 'react'
-import RegistrationFilters from './components/RegistrationFilters'
-import RegistrationTable from './components/RegistrationTable'
-import { sampleRegistrations } from './Api/sample-data'
-import Pagination from './components/Pagination'
+import { CarFront, CalendarDays, MapPin } from 'lucide-react'
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedType, setSelectedType] = useState('')
-  const [selectedStatus, setSelectedStatus] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 10
-
-  const filteredRegistrations = sampleRegistrations.filter((registration) => {
-  const matchesSearch = registration.participantName
-    .toLowerCase()
-    .includes(searchTerm.toLowerCase())
-
-  const matchesType =
-    selectedType === '' || registration.registrationType === selectedType
-
-  const matchesStatus =
-    selectedStatus === '' || registration.status === selectedStatus
-
-  return matchesSearch && matchesType && matchesStatus
-})
-
-const totalPages = Math.ceil(filteredRegistrations.length / pageSize)
-console.log('Total registrations:', filteredRegistrations.length)
-console.log('Total pages:', totalPages)
-
-const paginatedRegistrations = filteredRegistrations.slice(
-  (currentPage - 1) * pageSize,
-  currentPage * pageSize
-)
-
   return (
-    <div className="min-h-screen bg-slate-100">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 px-6 py-4">
-        <h1 className="text-xl font-bold text-slate-800">
-          Car Show Registration System
-        </h1>
-        <p className="text-sm text-slate-500">
-          Registration Management Dashboard
-        </p>
-      </header>
-
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="hidden md:block w-60 min-h-screen bg-slate-900 p-5">
-          <h2 className="text-lg font-bold text-white mb-8">
-            Car Show Admin
-          </h2>
-
-          <nav className="space-y-2">
-            <div className="rounded-lg bg-blue-600 px-4 py-3 text-white">
-              Dashboard
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <header className="border-b border-slate-800 bg-slate-950 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600 text-white shadow-sm">
+              <CarFront className="h-5 w-5" />
             </div>
-
-            <div className="rounded-lg px-4 py-3 text-slate-300">
-              Registrations
-            </div>
-
-            <div className="rounded-lg px-4 py-3 text-slate-300">
-              Payments
-            </div>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-6 md:p-8">
-          <h2 className="text-2xl font-bold text-slate-800">
-            Dashboard Overview
-          </h2>
-
-          <p className="mt-2 text-slate-500">
-            Welcome to the Car Show Registration Management System.
-          </p>
-
-          <div className="mt-8">
-            <h3 className="mb-5 text-lg font-semibold text-slate-800">
-              Registration Statistics
-            </h3>
-
-            <div className="mt-8">
-              <RegistrationFilters
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                selectedType={selectedType}
-                onTypeChange={setSelectedType}
-                selectedStatus={selectedStatus}
-                onStatusChange={setSelectedStatus}
-                onReset={() => {
-                  setSearchTerm('')
-                  setSelectedType('')
-                  setSelectedStatus('')
-                }}
-              />
-
-             <RegistrationTable registrations={paginatedRegistrations} />
-
-             <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              <KpiCard
-                title="Total Registrations"
-                value="125"
-                description="All registered participants"
-                icon="👥"
-                color="text-blue-600"
-              />
-
-              <KpiCard
-                title="Total Payments"
-                value="₱75,000"
-                description="Payments collected"
-                icon="💰"
-                color="text-green-600"
-              />
-
-              <KpiCard
-                title="Confirmed"
-                value="95"
-                description="Confirmed registrations"
-                icon="✅"
-                color="text-teal-600"
-              />
-
-              <KpiCard
-                title="Checked In"
-                value="60"
-                description="Participants checked in"
-                icon="🚗"
-                color="text-purple-600"
-              />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-red-400">
+                AutoVista Events
+              </p>
+              <h1 className="font-display text-2xl font-bold tracking-wide text-white">
+                Car Show 2027 Registration Dashboard
+              </h1>
             </div>
           </div>
-        </main>
-      </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5 text-red-400" />
+              Sorsogon City Coliseum
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays className="h-3.5 w-3.5 text-red-400" />
+              Event Operations
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <p className="text-sm text-slate-500">Dashboard initializing...</p>
+      </main>
     </div>
   )
 }
